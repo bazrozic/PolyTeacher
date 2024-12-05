@@ -1,5 +1,34 @@
-<a href="/api/french_spanish_translator">Traducteur Français vers Espagnol</a>
-</br>
-<a href="/api/french_english_translator">Traducteur Français vers Anglais</a>
-</br>
-<a href="/admin">Section administrateur</a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% comment %} {% load static %} {% endcomment %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% comment %} <link rel="stylesheet" href="{% static 'style.css' %}"> {% endcomment %}
+    <title>PolyTeacher</title>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur PolyTeacher</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Outils de traduction</h2>
+            <p><a href="/api/french_spanish_translator">Traducteur Français vers Espagnol</a></p>
+            <p><a href="/api/french_english_translator">Traducteur Français vers Anglais</a></p>
+        </section>
+        <section>
+            <h2>Toutes les traduction</h2>
+            <p><a href="api/all_translations/">Tout les traduction</a></p>
+
+        </section>
+        <section>
+            <h2>Administration</h2>
+            <p><a href="/admin">Section administrateur</a></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 PolyTeacher. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>
