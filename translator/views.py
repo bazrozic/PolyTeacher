@@ -10,7 +10,10 @@ from translator.serializers import TranslationSerializer
 class FrenchSpanishTranslationViewSet(APIView):
 
     def get(self, request):
-        return Response(data={'result': "OK"}, status=None)
+        translations = Translation.objects.filter(source_language='FR', target_language='ES')
+        print(f'translations: {translations}')
+        serializer = TranslationSerializer(translations, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
         return Response(data={}, status=None)
@@ -37,3 +40,31 @@ class FrenchEnglishTranslationViewSet(APIView):
 
 def index(request):
     return render(request, 'index.html', context={})
+
+
+class AllTranslationsViewSet(APIView):
+
+    def get(self, request):
+        translations = Translation.objects.all()
+        serializer = TranslationSerializer(translations, many=True)
+        return Response(data=serializer.data, status=status.HTTP_200_OK)
+    
+    def post(self, request):
+        serializer = TranslationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def put(self, request, pk):
+        translation = Translation.objects.get(pk=pk)
+        serializer = TranslationSerializer(translation, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk):
+        translation = Translation.objects.get(pk=pk)
+        translation.delete()
+        return Response(data={}, status=status.HTTP_204_NO_CONTENT)
